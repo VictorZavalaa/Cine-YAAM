@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
-</head>
+@section('content')
 
-<body>
-    @extends('layouts.app')
-    @section('content')
-        <h1>Registro de usuarios</h1>
+    @include('partials.alerts')
+
+    <h1>Registro de usuarios</h1>
 
         <form action="{{ route('registro.store') }}" method="POST">
 
@@ -56,6 +49,3 @@
             <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"> </i> Guardar </button>
         </form>
     @endsection
-</body>
-
-</html>

@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inicio de sesion</title>
-</head>
+@section('content')
 
-<body>
-    @extends('layouts.app')
-    @section('content')
-        <h1>Iniciar sesion</h1>
+    @include('partials.alerts')
+
+    <h1>Iniciar sesion</h1>
 
         <form action="{{ route('acceso.store') }}" method="POST">
 
@@ -26,7 +19,3 @@
             <button type="submit" class="btn btn-success">Iniciar sesion</button>
         </form>
     @endsection
-
-</body>
-
-</html>

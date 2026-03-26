@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Consulta de Movies</title>
-</head>
+@section('content')
 
-<body>
-    @extends('layouts.app')
-    @section('content')
-        <h1>Movies Registrados</h1>
+    @include('partials.alerts')
+
+    <h1>Movies Registrados</h1>
         <div class="d-flex justify-content-end mb-2">
             <a href="{{ route('movies.create') }}" class="btn btn-success mb-3 me-3">
                 <i class="fa-regular fa-square-plus"></i> Nuevo Movie
@@ -21,7 +14,7 @@
                 <button class="btn btn-danger"><i class="fa-solid fa-right-from-bracket me-3"></i>Cerrar sesion</button>
             </form>
 
-            @if (auth()->user()->is_admin)
+            @if (auth()->check() && auth()->user()->is_admin)
                 <a href="{{ route('admin-dashboard') }}" class="btn btn-secondary ms-3 mb-3">
                     <i class="fa-solid fa-user-tie"></i> Panel admin
                 </a>
@@ -69,6 +62,3 @@
             </tbody>
         </table>
     @endsection
-</body>
-
-</html>

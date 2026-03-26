@@ -3,89 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-//Usar el modelo de usuario
-use App\Models\usuario;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //Obtener datos del modelo
-        $usuarios = usuario::all();
-
-        //Mandar los datos a la vista index
+        $usuarios = User::all();
         return view('usuarios.index', compact('usuarios'));
     }
 
-    /**
-     * Retornar la vista del formulario de registro
-     */
     public function create()
     {
         return view('usuarios.create');
     }
 
-    /**
-     * Guardar los datos en la base de datos
-     */
     public function store(Request $request)
     {
-        //Esquema para enviar datos a la DB
-
-        usuario::create([
-            'nombre' => $request->nombre,
-            'email' => $request->email,
-            'password' => $request->password,
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required',
+            'password' => 'required',
         ]);
 
-        //Enviar al usuario a otra pagina
-        return redirect()->route('usuarios.create');
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'is_admin' => $request->has('is_admin') ? true : false,
+        ]);
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Usuario $usuario)
+    public function edit(User $usuario)
     {
         return view('usuarios.edit', compact('usuario'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, User $usuario)
     {
         $request->validate([
-
-            'nombre' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $usuario->id,
+            'phone' => 'required',
         ]);
 
-        $usuario->update($request->all());
+        $data = $request->except(['password']);
+        
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+        
+        $data['is_admin'] = $request->has('is_admin') ? true : false;
+
+        $usuario->update($data);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $usuario)
     {
         $usuario->delete();
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente');
+        return redirect()->route('usuarios.index')->with('danger', 'Usuario eliminado correctamente');
     }
 }

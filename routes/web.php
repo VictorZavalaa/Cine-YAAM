@@ -91,20 +91,4 @@ route::middleware(['auth', 'admin'])->group(function () {
 
 
 
-//------------------------------------------------------------
-//Rutas para el CRUD de movies
-
-//Usar el metodo del controlador en la ruta
-Route::resource('movies', MovieController::class);
-
-//Ruta para consultar los movies registrados
-Route::get('movie/{id}/edit', [
-    MovieController::class,
-    'edit'
-])->name('movies.edit');
-
-//Ruta para actualizar la informacion
-Route::put('movie/{id}', [
-    MovieController::class,
-    'update'
-])->name('movies.update');
+// (Rutas redundantes de movies eliminadas porque ya están dentro del middleware 'auth' arriba)

@@ -9,6 +9,9 @@
     <!-- Bootsrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Bootsrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- El de headasome-->
     <script src="https://kit.fontawesome.com/a87d2324b8.js" crossorigin="anonymous"></script>
 </head>

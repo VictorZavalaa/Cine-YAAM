@@ -41,7 +41,7 @@ class AuthController extends Controller
         //Inicio de sesion automatico
         Auth::login($user);
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index')->with('success', '¡Te has registrado correctamente!');
     }
 
     public function loginForm()
@@ -62,7 +62,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             //Ruta a la que se redirige despues de iniciar sesion 
-            return redirect()->route('movies.index');
+            return redirect()->route('movies.index')->with('success', '¡Has iniciado sesión correctamente!');
         }
 
         return back()->withErrors([
@@ -82,7 +82,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         //rederigir a la pagina de inicio de sesion
-        return redirect('/acceso');
+        return redirect('/acceso')->with('success', '¡Has cerrado sesión correctamente!');
     }
 
 

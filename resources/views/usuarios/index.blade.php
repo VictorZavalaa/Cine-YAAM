@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Consulta de Usuarios</title>
-</head>
+@section('content')
 
-<body>
+    @include('partials.alerts')
 
-    @extends('layouts.app')
+    <h1>Usuarios Registrados</h1>
 
-    @section('content')
-        <h1>Usuarios Registrados</h1>
-
-        <div class="d-flex justify-content-end mb-2">
+    <div class="d-flex justify-content-end mb-2">
 
             <a href="{{ route('usuarios.create') }}" class="btn btn-success mb-3">
                 Nuevo Usuario
@@ -31,7 +22,9 @@
                     <th>ID</th>
                     <th>NOMBRE</th>
                     <th>EMAIL</th>
-                    <th>PASSOWRD</th>
+                    <th>TELÉFONO</th>
+                    <th>ADMIN</th>
+                    <th>ACCIONES</th>
                 </tr>
             </thread>
             <tbody>
@@ -39,9 +32,16 @@
                     <tr>
                         <!-- Nombre de la BD -->
                         <td> {{ $usuario->id }}</td>
-                        <td>{{ $usuario->nombre }}</td>
+                        <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
-                        <td>{{ $usuario->passowrd }}</td>
+                        <td>{{ $usuario->phone }}</td>
+                        <td>
+                            @if($usuario->is_admin)
+                                <span class="badge bg-primary">Sí</span>
+                            @else
+                                <span class="badge bg-secondary">No</span>
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-warning">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -62,6 +62,3 @@
             </tbody>
         </table>
     @endsection
-</body>
-
-</html>

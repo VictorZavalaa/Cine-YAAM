@@ -1,43 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar Usuario</title>
-</head>
+@section('content')
 
-<body>
-    @extends('layouts.app')
-    @section('content')
-        <h1>Editar usuario: {{ $usuario->nombre }}</h1>
+    @include('partials.alerts')
 
-        <form action="{{ route('usuarios.update', $usuario) }}" method="POST">
+    <h1>Editar usuario: {{ $usuario->name }}</h1>
 
-            <!--Uso obligatorio para usar un formulario en laravel-->
-            @csrf
-            @method('PUT')
+    <form action="{{ route('usuarios.update', $usuario) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-            <input type="text" name="nombre" value="{{ $usuario->nombre }}" placeholder="Nombre" class="form=control">
-            <br>
-            <input type="text" name="email" value="{{ $usuario->email }}" placeholder="Email" class="form=control">
-            <br>
-            <input type="text" name="password" value="{{ $usuario->password }}" placeholder="Password"
-                class="form=control">
-            <br>
-
-            <button type="Submit" class="btn btn-success">Guardar</button>
-        </form>
-
-        <div class="d-flex justify-content-end">
-            <a href="{{ route('usuarios.index') }}" class="btn btn-danger">
-                Volver
-            </a>
-
+        <input type="text" name="name" value="{{ $usuario->name }}" placeholder="Nombre" class="form-control mb-2" required>
+        <input type="email" name="email" value="{{ $usuario->email }}" placeholder="Email" class="form-control mb-2" required>
+        <input type="text" name="phone" value="{{ $usuario->phone }}" placeholder="Teléfono" class="form-control mb-2" required>
+        <input type="password" name="password" placeholder="Nueva Contraseña (dejar en blanco para no cambiar)" class="form-control mb-2">
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="is_admin" value="1" id="is_admin" {{ $usuario->is_admin ? 'checked' : '' }}>
+            <label class="form-check-label" for="is_admin">Es administrador</label>
         </div>
-    @endsection
 
-</body>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
 
-</html>
+    <div class="d-flex justify-content-end mt-3">
+        <a href="{{ route('usuarios.index') }}" class="btn btn-danger">Volver</a>
+    </div>
+@endsection
