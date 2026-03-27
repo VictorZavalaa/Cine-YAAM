@@ -22,5 +22,10 @@ Un proyecto web desarrollado en **Laravel** diseñado para administrar un catál
 
 
 
-## 🤝 Contribuciones
-¡Las contribuciones son bienvenidas! Si tienes ideas de mejoras, siéntete libre de abrir un `Issue` o crear un `Pull Request`.
+## 🤝 Equipo
+ Cruz Mendoza Aylin
+ Olvera Ayala Diego
+ Ochoa-Zavala Victor Manuel 
+ Cordero Beltran Joel Yosset
+
+ 8B ITI
