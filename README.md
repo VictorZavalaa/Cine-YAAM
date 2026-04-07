@@ -1,59 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎬 Cine-YAAM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Evidencia Integradora de la materia de Tecnologias y Aplicaciones en Internet.
 
-## About Laravel
+Aplicación web para buscar películas, ver detalles, guardar favoritos en listas, comentar y reaccionar a comentarios.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Está construida con Laravel y consume la API de TMDB para traer la información de películas.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ¿Qué hace este proyecto?
 
-## Learning Laravel
+En resumen, permite:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- registro e inicio de sesión;
+- búsqueda y exploración de películas;
+- detalle de película con comentarios;
+- reacciones a comentarios (like/dislike);
+- favoritos por listas personalizadas;
+- panel de administración de usuarios;
+- alertas visuales (éxito, error, advertencia) en todo el sistema;
+- correo de alerta cuando un usuario inicia sesión.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Stack usado
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Backend:** PHP 8.2 + Laravel 12
+- **Frontend:** Blade + Bootstrap + Vite
+- **Base de datos:** MySQL (usando XAMPP en desarrollo)
+- **API externa:** TMDB
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Módulos principales
 
-## Contributing
+- **Autenticación:** registro, login y logout.
+- **Películas:** búsqueda, sugerencias y detalle.
+- **Comentarios:** crear, editar, eliminar y reaccionar.
+- **Favoritos:** guardar películas y organizarlas en listas.
+- **Perfil:** ver comentarios, favoritos y notificaciones.
+- **Admin:** CRUD de usuarios con middleware de administrador.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Requisitos
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- PHP 8.2+
+- Composer
+- Node.js + npm
+- MySQL
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Instalación rápida
 
-## License
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Configura en tu `.env`:
+
+- conexión de base de datos (`DB_*`)
+- token de TMDB (`TMDB_TOKEN`)
+- correo (`MAIL_*`) si quieres probar alertas por email
+
+Luego ejecuta:
+
+```bash
+php artisan migrate
+npm install
+npm run build
+```
+
+Para desarrollo:
+
+```bash
+composer run dev
+```
+
+---
+
+## Variables importantes en `.env`
+
+Este proyecto usa en especial:
+
+- `TMDB_TOKEN`
+- `TMDB_LANG` (opcional, por defecto `es-MX`)
+- `TMDB_BASE_URL` (opcional)
+- `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, etc.
+
+---
+
+## Rutas importantes
+
+- `/search` → buscador
+- `/search/suggest` → sugerencias (JSON)
+- `/movies/{id}` → detalle de película
+- `/favorites` → listas de favoritos
+- `/user/comments` → comentarios del usuario
+- `/admin/dashboard` → panel admin
+
+---
+
+## Alertas del sistema
+
+Se manejan con un partial global en `resources/views/partials/flash-alerts.blade.php` y se muestran desde la navbar.
+
+Tipos implementados:
+
+- `success`
+- `error`
+- `warning`
+- `info`
+
+---
+
+## API y correo
+
+- Consumo de API TMDB desde `SearchController` y `CommentController` usando `Http::...`.
+- Envío de correo al iniciar sesión mediante listener `EnviarCorreo` + mailable `AlertaLoginCorreo`.
+
+### Uso mínimo de API implementado
+
+Para cumplir con la implementación mínima de API en el proyecto se realizó:
+
+- **Consulta externa de información**: llamada a TMDB para buscar películas y obtener detalle (`/search` y `/movies/{id}`).
+- **Exposición de datos en formato JSON**: endpoint interno de sugerencias en `/search/suggest`.
+- **Operación de almacenamiento vinculada al flujo API**: guardado de películas/comentarios en base local a partir de datos consultados en TMDB.
+
+---
+
+## Estructura (resumen)
+
+```text
+app/
+	Http/Controllers/
+	Http/Middleware/
+	Listeners/
+	Mail/
+	Models/
+resources/views/
+	admin/
+	favorites/
+	movie/
+	partials/
+	user/
+routes/
+	web.php
+```
+
+---
+
+## Estado actual
+
+Proyecto funcional para flujo completo de usuario (buscar, guardar y comentar películas) + módulo admin para gestión de usuarios.
+
+---
+
+## Autores
+
+Cordero Beltran Joel Yosset
+Cruz Mendoza Aylin
+Olvera Ayala Diego Alexis
+Ochoa-Zavala Victor Manuel
+
+
+
+**Victor Zavala**  
+Repositorio: `VictorZavalaa/Cine-YAAM`
