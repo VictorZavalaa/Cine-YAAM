@@ -161,6 +161,8 @@ Proyecto funcional para flujo completo de usuario (buscar, guardar y comentar pe
 
 ## Autores
 
+8B Ingenieria en Tecnologias de la informacion
+
 Cordero Beltran Joel Yosset
 Cruz Mendoza Aylin
 Olvera Ayala Diego Alexis
